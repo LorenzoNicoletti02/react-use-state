@@ -1,35 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import LanguageButton from './components/LanguageButton';
+import LanguageDetailCard from './components/LanguageDetailCard';
+import languages from './data/languages.js';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container mt-4">
+      <h1 className="mb-4">Linguaggi del web</h1>
+      <div className="d-flex gap-2">
+        {languages.map((language) => (
+          <LanguageButton
+            key={language.title}
+            language={language}
+            isSelected={selectedLanguage?.title === language.title}
+            onClick={() => setSelectedLanguage(language)}
+          />
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <LanguageDetailCard language={selectedLanguage} />
+    </div>
+  );
 }
 
-export default App
+export default App;
